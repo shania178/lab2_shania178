@@ -68,8 +68,52 @@ def find_common_words(counts1, counts2):
 
 # Find common words and all unique words
 common_words, all_words = find_common_words(counts1, counts2)
-print("Common words:", common_words)
-print("All words:", all_words)
+
+def display_common_words_with_counts(common_words, counts1, counts2):
+    """
+    Display each common word with its frequency count in both essays.
+
+    Parameters:
+    - common_words: A set of words that appear in both essays
+    - counts1: Dictionary with word frequencies from essay1
+    - counts2: Dictionary with word frequencies from essay2
+    
+    Sort the common words alphabetically for better readability
+    sorted() converts the set to a sorted list
+
+    """
+    sorted_words = sorted(common_words)
+
+    # Print a header section to separate this from other output
+    print("\n--- Common Words and Their Frequencies ---")
+
+    """
+    Print column headers for the table
+    '<20' means left-align and use 20 characters width
+    '<10' means left-align and use 10 characters width
+
+    """
+    print(f"{'Word':<20} {'Essay 1':<10} {'Essay 2':<10}")
+
+    # Print a separator line for visual clarity
+    print("-" * 40)
+
+    # Loop through each common word one by one
+    for word in sorted_words:
+        # Get the count of this word from essay1 dictionary
+        # Use .get(word, 0) to return 0 if word not found
+        count1 = counts1.get(word, 0)
+
+        # Get the count of this word from essay2 dictionary
+        count2 = counts2.get(word, 0)
+
+        # Print the word and its counts in a formatted table row
+        print(f"{word:<20} {count1:<10} {count2:<10}")
+
+    # Print the total number of common words found
+    print(f"\nTotal common words: {len(common_words)}")
+
+display_common_words_with_counts(common_words, counts1, counts2)
 
 # 5. Calculate Plagiarism Percentage
 def calculate_plagiarism(common_words, all_words):

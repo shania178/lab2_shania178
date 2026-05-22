@@ -7,14 +7,27 @@ import string
 #1. Read Two Essays
 
 def read_essay(filename):
-    # Open the file and read its content
-    with open(filename, "r") as f:
-        content = f.read()
-    return content
+    try:    
+        # Open the file and read its content
+        with open(filename, "r") as f:
+            content = f.read()
+        # Check if file is empty
+        if not content.strip():
+            print(f"Error: {filename} is empty!")
+            return None
+        return content
+    except FileNotFoundError:
+        print(f"Error: {filename} not found!")
+        return None
 
 # Read both essays
 essay1 = read_essay("essay1.txt")
 essay2 = read_essay("essay2.txt")
+
+# Check if essays were successfully loaded
+if essay1 is None or essay2 is None:
+    print("Error: Cannot proceed without both essays!")
+    exit()
 
 # 2. Clean The Text
 
@@ -141,8 +154,22 @@ else:
 
 # 6. Search for a specific word
 def search_word(word, counts1, counts2):
+    # Check if input is empty
+    if not word.strip():
+        print("Error: Please enter a word!")
+        return False
+
     # Convert word to lowercase
     word = word.lower()
+
+    # Remove punctuation
+    word = word.translate(str.maketrans("", "", string.punctuation))
+
+    # Check if word is empty after removing punctuation
+    if not word:
+        print("Error: Word contains only punctuation!")
+        return False
+
     # Get counts
     count1 = counts1.get(word, 0)
     count2 = counts2.get(word, 0)
@@ -163,6 +190,11 @@ while True:
     if user_word.lower() == 'quit':
         print("Goodbye!")
         break
+
+    # Check for empty input
+    if not user_word.strip():
+        print("Warning: Please enter a word!\n")
+        continue
 
     result = search_word(user_word, counts1, counts2)
     print(f"Found: {result}\n")

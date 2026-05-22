@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 # Plagiarism Detector
 
 ## Project Description

@@ -16,9 +16,6 @@ def read_essay(filename):
 essay1 = read_essay("essay1.txt")
 essay2 = read_essay("essay2.txt")
 
-print(essay1)
-print(essay2)
-
 # 2. Clean The Text
 
 def clean_text(text):
@@ -54,9 +51,6 @@ def count_words(words):
 # Count word frequencies
 counts1 = count_words(word1)
 counts2 = count_words(word2)
-
-print(counts1)
-print(counts2)
 
 # 4. Find Common Words
 def find_common_words(counts1, counts2):
